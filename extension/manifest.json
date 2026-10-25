@@ -1,0 +1,29 @@
+{
+  "manifest_version": 3,
+  "name": "Wrees Startpage",
+  "version": "1.0.0",
+  "description": "A local start page with declarative settings and optional Noctalia colors.",
+  "permissions": ["storage", "nativeMessaging"],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "startpage@wrees",
+      "strict_min_version": "142.0",
+      "data_collection_permissions": {
+        "required": ["searchTerms"]
+      }
+    }
+  },
+  "chrome_url_overrides": {
+    "newtab": "index.html"
+  },
+  "chrome_settings_overrides": {
+    "homepage": "index.html"
+  },
+  "content_security_policy": {
+    "extension_pages": "default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; frame-src 'none'; form-action https://duckduckgo.com"
+  },
+  "icons": {
+    "48": "icon.svg",
+    "96": "icon.svg"
+  }
+}

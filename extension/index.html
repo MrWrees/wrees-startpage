@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; frame-src 'none'; form-action https://duckduckgo.com">
+  <title>~ / startpage</title>
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="startpage.js"></script>
+</head>
+<body>
+  <main class="container">
+    <header>
+      <div class="sys-info">
+        <span>host: <strong id="host-name">localhost</strong></span>
+        <time id="live-date"></time>
+      </div>
+      <h1>localhost:~# <span id="greeting-text">welcome.sh</span></h1>
+    </header>
+    <section class="search-area" aria-label="Search">
+      <div class="prompt"><span id="prompt-identity">user@localhost</span> <span>~ $</span> query --search</div>
+      <div class="search-box">
+        <form id="search-form" action="https://duckduckgo.com/" method="get" autocomplete="off">
+          <label class="visually-hidden" for="search-query">Search DuckDuckGo</label>
+          <input id="search-query" type="search" name="q" placeholder="Type here to search DuckDuckGo…" maxlength="2048" autofocus autocomplete="off" spellcheck="false">
+        </form>
+      </div>
+    </section>
+    <div class="grid" id="categories" aria-label="Bookmarks"></div>
+    <footer>
+      <p>Theme: <span id="theme-status">LOCAL PALETTE</span> | Managed declaratively via Nix</p>
+    </footer>
+  </main>
+</body>
+</html>
