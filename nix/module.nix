@@ -1,6 +1,7 @@
 { config, lib, options, pkgs, ... }:
 let
   cfg = config.programs.wrees-startpage;
+  release = import ./release.nix;
   extensionId = "startpage@wrees";
   hostName = "io.github.wrees.startpage";
   xpiSource = "${cfg.xpi}";
@@ -33,7 +34,7 @@ let
       private_browsing = false;
     };
     "3rdparty".Extensions.${extensionId} = {
-      inherit (cfg) username hostname;
+      inherit (cfg) username hostname searchEngine;
       noctalia = cfg.noctalia.enable;
     } // lib.optionalAttrs (cfg.categories != null) {
       inherit (cfg) categories;
@@ -56,10 +57,12 @@ in
     };
     xpi = lib.mkOption {
       type = lib.types.either lib.types.path lib.types.package;
-      default = pkgs.fetchurl {
-        url = "https://github.com/MrWrees/wrees-startpage/releases/download/Release/wrees-startpage-1.0.0-signed.xpi";
-        hash = "sha256-twT0beyvGTY0I1b7+RSfDwSOc/AX39PtO6D9NnVnGsc=";
-      };
+      default =
+        if release.hash == null then
+          throw "Wrees Startpage ${release.version}: sign the XPI on AMO, then run python3 scripts/pin_release.py SIGNED_XPI before updating this flake input."
+        else pkgs.fetchurl {
+          inherit (release) url hash;
+        };
       description = "Mozilla-signed XPI matching this module's pinned extension source.";
     };
     username = lib.mkOption {
@@ -69,6 +72,11 @@ in
     hostname = lib.mkOption {
       type = lib.types.str;
       default = "localhost";
+    };
+    searchEngine = lib.mkOption {
+      type = lib.types.strMatching "[^[:cntrl:]]{1,80}";
+      default = "DuckDuckGo";
+      description = "Name of an installed Firefox or Zen search engine used by the start page.";
     };
     categories = lib.mkOption {
       type = lib.types.nullOr (lib.types.listOf (lib.types.submodule {
@@ -84,7 +92,8 @@ in
           };
         };
       }));
-      default = null;
+      default = [];
+      description = "Bookmark groups supplied through Firefox managed storage; empty by default.";
     };
     noctalia = {
       enable = lib.mkEnableOption "local Noctalia palette integration";

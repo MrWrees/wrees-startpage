@@ -1,5 +1,8 @@
 { runCommand, python3 }:
-runCommand "wrees-startpage-1.0.0-unsigned" {
+let
+  manifest = builtins.fromJSON (builtins.readFile ../extension/manifest.json);
+in
+runCommand "wrees-startpage-${manifest.version}-unsigned" {
   nativeBuildInputs = [ python3 ];
   passthru.extensionId = "startpage@wrees";
 } ''

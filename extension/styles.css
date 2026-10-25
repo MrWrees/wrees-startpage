@@ -1,4 +1,5 @@
 :root {
+    color-scheme: dark;
     --bg-color: #1e1e2e;
     --card-bg: #181825;
     --fg-color: #cdd6f4;
@@ -7,6 +8,22 @@
     --mauve-accent: #cba6f7;
     --cyan-accent: #94e2d5;
     --green-accent: #a6e3a1;
+}
+
+html {
+    background-color: var(--bg-color);
+}
+
+html[data-loading], html[data-loading] body {
+    background-color: transparent;
+}
+
+html[data-loading] .container {
+    visibility: hidden;
+}
+
+html[data-starting] * {
+    transition: none !important;
 }
 
 * {
@@ -55,7 +72,7 @@ header h1 {
     font-weight: normal;
 }
 
-header h1 span {
+header h1 #greeting-text {
     color: var(--pink-accent);
 }
 
@@ -98,12 +115,22 @@ header h1 span {
     font-family: inherit;
     font-size: 1.05rem;
     outline: none;
-    transition: all 0.25s ease-in-out;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
 .search-box input:focus {
     border-color: var(--pink-accent);
     box-shadow: 0 0 10px rgba(245, 194, 231, 0.2);
+}
+
+#search-error {
+    margin-top: 10px;
+    color: var(--pink-accent);
+    font-size: 0.9rem;
+}
+
+#search-error:empty {
+    display: none;
 }
 
 .grid {

@@ -59,6 +59,7 @@ export function normalizeConfig(raw = {}) {
     username: safeText(own("username"), defaults.username, 64),
     hostname: safeText(own("hostname"), defaults.hostname, 64),
     noctalia: own("noctalia") === true,
+    searchEngine: safeText(own("searchEngine"), defaults.searchEngine, 80),
     categories
   };
 }
