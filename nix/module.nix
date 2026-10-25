@@ -56,6 +56,10 @@ in
     };
     xpi = lib.mkOption {
       type = lib.types.either lib.types.path lib.types.package;
+      default = pkgs.fetchurl {
+        url = "https://github.com/MrWrees/wrees-startpage/releases/download/Release/wrees-startpage-1.0.0-signed.xpi";
+        hash = "sha256-twT0beyvGTY0I1b7+RSfDwSOc/AX39PtO6D9NnVnGsc=";
+      };
       description = "Mozilla-signed XPI matching this module's pinned extension source.";
     };
     username = lib.mkOption {
